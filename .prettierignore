@@ -1,0 +1,5 @@
+# Ignore artifacts:
+packages/cdk/cdk.out
+packages/ui/.next
+packages/ui/out
+node_modules

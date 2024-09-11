@@ -1,0 +1,119 @@
+{
+  "app": "tsx ./bin/cdk.ts",
+  "context": {
+    "environmentConfig": {
+      "development": {
+        "profile": "recipes_development",
+        "region": "us-west-2",
+        "auth": {
+          "autoVerifyUsers": true
+        },
+        "logRetentionInDays": 1,
+        "systemLogLevel": "INFO",
+        "appLogLevel": "TRACE",
+        "isSourceMapsEnabled": true,
+        "email": {
+          "verifyUserEmail": "",
+          "sandboxApprovedToEmails": []
+        },
+        "api": {},
+        "monitoring": {
+          "isDashboardEnabled": true,
+          "isAlarmsEnabled": false,
+          "alarmNotificationEmail": ""
+        }
+      },
+      "staging": {
+        "profile": "recipes_staging",
+        "region": "us-west-2",
+        "auth": {
+          "autoVerifyUsers": false
+        },
+        "logRetentionInDays": 3,
+        "systemLogLevel": "WARN",
+        "appLogLevel": "INFO",
+        "email": {
+        },
+        "api": {
+          "domainName": ""
+        },
+        "ui": {
+          "domainName": ""
+        },
+        "monitoring": {
+          "isDashboardEnabled": true,
+          "isAlarmsEnabled": true,
+          "alarmNotificationEmail": ""
+        }
+      },
+      "production": {
+        "profile": "recipes_production",
+        "region": "us-west-2",
+        "auth": {
+          "autoVerifyUsers": false
+        },
+        "logRetentionInDays": 14,
+        "systemLogLevel": "WARN",
+        "appLogLevel": "INFO",
+        "email": {
+        },
+        "api": {
+          "domainName": ""
+        },
+        "ui": {
+          "domainName": ""
+        },
+        "monitoring": {
+          "isDashboardEnabled": true,
+          "isAlarmsEnabled": true,
+          "alarmNotificationEmail": ""
+        }
+      }
+    }
+  },
+  "watch": {
+    "include": [
+      "../api/**/*.ts",
+      "../cognito/**/*.ts",
+      "../common/**/*.ts"
+    ],
+    "exclude": [
+      "../**/*.d.ts",
+      "../**/node_modules",
+      "../**/test",
+      "../**/*.test.ts"
+    ]
+  },
+  "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
+  "@aws-cdk/core:checkSecretUsage": true,
+  "@aws-cdk/core:target-partitions": [
+    "aws",
+    "aws-cn"
+  ],
+  "@aws-cdk-containers/ecs-service-extensions:enableDefaultLogDriver": true,
+  "@aws-cdk/aws-ec2:uniqueImdsv2TemplateName": true,
+  "@aws-cdk/aws-ecs:arnFormatIncludesClusterName": true,
+  "@aws-cdk/aws-iam:minimizePolicies": true,
+  "@aws-cdk/core:validateSnapshotRemovalPolicy": true,
+  "@aws-cdk/aws-codepipeline:crossAccountKeyAliasStackSafeResourceName": true,
+  "@aws-cdk/aws-s3:createDefaultLoggingPolicy": true,
+  "@aws-cdk/aws-sns-subscriptions:restrictSqsDescryption": true,
+  "@aws-cdk/aws-apigateway:disableCloudWatchRole": true,
+  "@aws-cdk/core:enablePartitionLiterals": true,
+  "@aws-cdk/aws-events:eventsTargetQueueSameAccount": true,
+  "@aws-cdk/aws-iam:standardizedServicePrincipals": true,
+  "@aws-cdk/aws-ecs:disableExplicitDeploymentControllerForCircuitBreaker": true,
+  "@aws-cdk/aws-iam:importedRoleStackSafeDefaultPolicyName": true,
+  "@aws-cdk/aws-s3:serverAccessLogsUseBucketPolicy": true,
+  "@aws-cdk/aws-route53-patters:useCertificate": true,
+  "@aws-cdk/customresources:installLatestAwsSdkDefault": false,
+  "@aws-cdk/aws-rds:databaseProxyUniqueResourceName": true,
+  "@aws-cdk/aws-codedeploy:removeAlarmsFromDeploymentGroup": true,
+  "@aws-cdk/aws-apigateway:authorizerChangeDeploymentLogicalId": true,
+  "@aws-cdk/aws-ec2:launchTemplateDefaultUserData": true,
+  "@aws-cdk/aws-secretsmanager:useAttachedSecretResourcePolicyForSecretTargetAttachments": true,
+  "@aws-cdk/aws-redshift:columnId": true,
+  "@aws-cdk/aws-stepfunctions-tasks:enableEmrServicePolicyV2": true,
+  "@aws-cdk/aws-ec2:restrictDefaultSecurityGroup": true,
+  "@aws-cdk/aws-apigateway:requestValidatorUniqueId": true
+}
