@@ -110,8 +110,8 @@ export async function listIngredients({ lastEvaluatedKey, filter }: ListIngredie
   })
   const ingredientScanResponseItems = filterResults({ results: ingredientScanResponse.Items, filter })
   const ingredientsHavingCreatedByUserIds = ingredientScanResponseItems.filter((ingredient) => ingredient.createdByUserId)
-  const ingredientsCreatedByUserIds = ingredientsHavingCreatedByUserIds.map((ingredient) => ({ userId: ingredient.createdByUserId! }))
-  const ingredientsCreatedByUsers = await batchGetUsers({ ids: ingredientsCreatedByUserIds })
+  const createdByUserIds = ingredientsHavingCreatedByUserIds.map((ingredient) => ({ userId: ingredient.createdByUserId! }))
+  const ingredientsCreatedByUsers = await batchGetUsers({ ids: createdByUserIds })
   const ingredients = ingredientScanResponseItems.map((ingredient) => {
     const createdByUser = ingredientsCreatedByUsers.find((ingredientCreatedByUser) => ingredientCreatedByUser.userId === ingredient.createdByUserId)
 

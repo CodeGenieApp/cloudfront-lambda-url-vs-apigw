@@ -105,8 +105,8 @@ export async function listRecipeRatings({ lastEvaluatedKey, filter, recipeId }: 
   const recipeRatingQueryResponse = await RecipeRatingEntity.query(recipeId, { limit: DEFAULT_PAGE_SIZE, startKey: lastEvaluatedKey })
   const recipeRatingQueryResponseItems = filterResults({ results: recipeRatingQueryResponse.Items, filter })
   const recipeRatingsHavingCreatedByUserIds = recipeRatingQueryResponseItems.filter((recipeRating) => recipeRating.createdByUserId)
-  const recipeRatingsCreatedByUserIds = recipeRatingsHavingCreatedByUserIds.map((recipeRating) => ({ userId: recipeRating.createdByUserId! }))
-  const recipeRatingsCreatedByUsers = await batchGetUsers({ ids: recipeRatingsCreatedByUserIds })
+  const createdByUserIds = recipeRatingsHavingCreatedByUserIds.map((recipeRating) => ({ userId: recipeRating.createdByUserId! }))
+  const recipeRatingsCreatedByUsers = await batchGetUsers({ ids: createdByUserIds })
   const recipeRatings = recipeRatingQueryResponseItems.map((recipeRating) => {
     const createdByUser = recipeRatingsCreatedByUsers.find((recipeRatingCreatedByUser) => recipeRatingCreatedByUser.userId === recipeRating.createdByUserId)
 

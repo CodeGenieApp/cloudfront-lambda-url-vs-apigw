@@ -105,8 +105,8 @@ export async function listSteps({ lastEvaluatedKey, filter, recipeId }: ListStep
   const stepQueryResponse = await StepEntity.query(recipeId, { limit: DEFAULT_PAGE_SIZE, startKey: lastEvaluatedKey })
   const stepQueryResponseItems = filterResults({ results: stepQueryResponse.Items, filter })
   const stepsHavingCreatedByUserIds = stepQueryResponseItems.filter((step) => step.createdByUserId)
-  const stepsCreatedByUserIds = stepsHavingCreatedByUserIds.map((step) => ({ userId: step.createdByUserId! }))
-  const stepsCreatedByUsers = await batchGetUsers({ ids: stepsCreatedByUserIds })
+  const createdByUserIds = stepsHavingCreatedByUserIds.map((step) => ({ userId: step.createdByUserId! }))
+  const stepsCreatedByUsers = await batchGetUsers({ ids: createdByUserIds })
   const steps = stepQueryResponseItems.map((step) => {
     const createdByUser = stepsCreatedByUsers.find((stepCreatedByUser) => stepCreatedByUser.userId === step.createdByUserId)
 

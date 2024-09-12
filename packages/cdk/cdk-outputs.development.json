@@ -1,0 +1,61 @@
+{
+  "Recipes-development-Monitoring": {
+    "Region": "us-west-2"
+  },
+  "Recipes-development-Auth": {
+    "ExportsOutputRefAuthUserPool8115E87F4F9C6D4C": "us-west-2_P3Jj4wnlF",
+    "UserPoolClientId": "5l5grd9lueq3mc4de4c3df5jse",
+    "ExportsOutputRefAuthUserPoolUserPoolClientBB863FCCB5DBFB7B": "5l5grd9lueq3mc4de4c3df5jse",
+    "UserPoolId": "us-west-2_P3Jj4wnlF",
+    "ExportsOutputRefAuthPreTokenGenerationFunctionPreTokenGenerationFunctionFunctionFED5BC2DD73E1D85": "Recipes-development-Auth-AuthPreTokenGenerationFun-QW88IiWD7fRU",
+    "ExportsOutputRefAuthCustomMessageFunctionCustomMessageFunctionLogGroup557B06B9DA197D85": "Recipes-development-Auth-AuthCustomMessageFunctionCustomMessageFunctionLogGroup557B06B9-4778vwWBgafc",
+    "ExportsOutputRefAuthPreSignupFunctionPreSignupFunctionLogGroup252FE48E34FD04C6": "Recipes-development-Auth-AuthPreSignupFunctionPreSignupFunctionLogGroup252FE48E-57LlARuquGBC",
+    "ExportsOutputRefAuthPreTokenGenerationFunctionPreTokenGenerationFunctionLogGroupBFCF770F61B3EEA2": "Recipes-development-Auth-AuthPreTokenGenerationFunctionPreTokenGenerationFunctionLogGroupBFCF770F-DEavACoN0wKW",
+    "Region": "us-west-2",
+    "ExportsOutputRefAuthPreSignupFunctionPreSignupFunctionFunction27695C82EFD7166D": "Recipes-development-Auth-AuthPreSignupFunctionPreS-pgKBBsM1VJm6",
+    "ExportsOutputRefAuthCustomMessageFunctionCustomMessageFunctionFunction635EAB4E31D5154C": "Recipes-development-Auth-AuthCustomMessageFunction-3h7e2ZYDesYB"
+  },
+  "Recipes-development-WebApp": {
+    "Region": "us-west-2",
+    "AmplifyUrl": "https://development.d1eu4130vhuw87.amplifyapp.com",
+    "ExportsOutputFnGetAttWebAppAmplifyApp42AA4FC9AppId0CA26BD3": "d1eu4130vhuw87"
+  },
+  "Recipes-development-Api": {
+    "ExportsOutputRefExpressApiLambdaFunctionLambdaFunctionFunctionE7A091BBFE1487C1": "Recipes-development-Api-ExpressApiLambdaFunctionLa-WeBbakOORgee",
+    "ExportsOutputRefExpressApiHttpApiA49C63655567EF4B": "rg2hdpixtc",
+    "UserUploadedFilesBucketName": "recipes-development-api-expressapiuseruploadedfile-fryk0hlv3zra",
+    "Region": "us-west-2",
+    "ApiEndpoint": "https://rg2hdpixtc.execute-api.us-west-2.amazonaws.com",
+    "ExportsOutputRefExpressApiLambdaFunctionLambdaFunctionLogGroup0A46D4BB990477F0": "Recipes-development-Api-ExpressApiLambdaFunctionLambdaFunctionLogGroup0A46D4BB-K8eUDWlnWkmW"
+  },
+  "Recipes-development-Database": {
+    "ExportsOutputFnGetAttRecipeTable1376D008Arn93B8B7A6": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-RecipeTable1376D008-YWF9674KNPW7",
+    "ExportsOutputFnGetAttStepTableEFD98F96Arn6BD489AC": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-StepTableEFD98F96-1WHHZWNS7XIF9",
+    "RecipeRatingTable": "Recipes-development-Database-RecipeRatingTableC9746FE4-7MHFYH4YD0P7",
+    "ExportsOutputFnGetAttRecipeIngredientTable2E3097A2Arn78A2F229": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-RecipeIngredientTable2E3097A2-D9A0NKFFG858",
+    "ExportsOutputFnGetAttShoppingListItemTableFE38D472Arn59353DA7": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-ShoppingListItemTableFE38D472-1TFJDY9WW3B0O",
+    "ExportsOutputRefShoppingListItemTableFE38D472A6CDEFB3": "Recipes-development-Database-ShoppingListItemTableFE38D472-1TFJDY9WW3B0O",
+    "ExportsOutputFnGetAttIngredientTableEA3B3DDDArn6BB5F14E": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-IngredientTableEA3B3DDD-VC9SITOZAV3",
+    "ExportsOutputRefIngredientTableEA3B3DDD8F00BB2E": "Recipes-development-Database-IngredientTableEA3B3DDD-VC9SITOZAV3",
+    "RecipeIngredientTable": "Recipes-development-Database-RecipeIngredientTable2E3097A2-D9A0NKFFG858",
+    "ExportsOutputRefRecipeTable1376D008D502063A": "Recipes-development-Database-RecipeTable1376D008-YWF9674KNPW7",
+    "ExportsOutputRefShoppingListTable1C42399FF485CC5E": "Recipes-development-Database-ShoppingListTable1C42399F-5M864G91ZHK3",
+    "TagTable": "Recipes-development-Database-TagTableA9DECFCD-1SZ54FUT0J4EO",
+    "ExportsOutputFnGetAttShoppingListTable1C42399FArnEADCFC68": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-ShoppingListTable1C42399F-5M864G91ZHK3",
+    "ExportsOutputRefRecipeRatingTableC9746FE4EB8C6A38": "Recipes-development-Database-RecipeRatingTableC9746FE4-7MHFYH4YD0P7",
+    "ExportsOutputRefStepTableEFD98F967DD9F506": "Recipes-development-Database-StepTableEFD98F96-1WHHZWNS7XIF9",
+    "UserTable": "Recipes-development-Database-UserTable7422B51B-HCQTKEC8OM0M",
+    "ExportsOutputRefUserTable7422B51B54C5D340": "Recipes-development-Database-UserTable7422B51B-HCQTKEC8OM0M",
+    "ExportsOutputFnGetAttUserTable7422B51BArn264A2F84": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-UserTable7422B51B-HCQTKEC8OM0M",
+    "IngredientTable": "Recipes-development-Database-IngredientTableEA3B3DDD-VC9SITOZAV3",
+    "RecipeTable": "Recipes-development-Database-RecipeTable1376D008-YWF9674KNPW7",
+    "ExportsOutputRefRecipeIngredientTable2E3097A285008860": "Recipes-development-Database-RecipeIngredientTable2E3097A2-D9A0NKFFG858",
+    "ExportsOutputRefTagTableA9DECFCD4AB9763E": "Recipes-development-Database-TagTableA9DECFCD-1SZ54FUT0J4EO",
+    "ShoppingListTable": "Recipes-development-Database-ShoppingListTable1C42399F-5M864G91ZHK3",
+    "ExportsOutputFnGetAttTagTableA9DECFCDArnF4128E18": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-TagTableA9DECFCD-1SZ54FUT0J4EO",
+    "Region": "us-west-2",
+    "ExportsOutputFnGetAttRecipeRatingTableC9746FE4ArnEA02340E": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-development-Database-RecipeRatingTableC9746FE4-7MHFYH4YD0P7",
+    "StepTable": "Recipes-development-Database-StepTableEFD98F96-1WHHZWNS7XIF9",
+    "ShoppingListItemTable": "Recipes-development-Database-ShoppingListItemTableFE38D472-1TFJDY9WW3B0O"
+  }
+}

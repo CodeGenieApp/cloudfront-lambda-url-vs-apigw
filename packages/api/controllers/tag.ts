@@ -111,8 +111,8 @@ export async function listTags({ lastEvaluatedKey, filter }: ListTagsParams = {}
   })
   const tagScanResponseItems = filterResults({ results: tagScanResponse.Items, filter })
   const tagsHavingCreatedByUserIds = tagScanResponseItems.filter((tag) => tag.createdByUserId)
-  const tagsCreatedByUserIds = tagsHavingCreatedByUserIds.map((tag) => ({ userId: tag.createdByUserId! }))
-  const tagsCreatedByUsers = await batchGetUsers({ ids: tagsCreatedByUserIds })
+  const createdByUserIds = tagsHavingCreatedByUserIds.map((tag) => ({ userId: tag.createdByUserId! }))
+  const tagsCreatedByUsers = await batchGetUsers({ ids: createdByUserIds })
   const tags = tagScanResponseItems.map((tag) => {
     const createdByUser = tagsCreatedByUsers.find((tagCreatedByUser) => tagCreatedByUser.userId === tag.createdByUserId)
 

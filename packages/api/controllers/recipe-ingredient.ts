@@ -114,11 +114,11 @@ export async function listRecipeIngredients({ lastEvaluatedKey, filter, recipeId
   const recipeIngredientQueryResponseItems = filterResults({ results: recipeIngredientQueryResponse.Items, filter })
   const recipeIngredientsHavingIngredientIds = recipeIngredientQueryResponseItems.filter((recipeIngredient) => recipeIngredient.ingredientId)
   const recipeIngredientsHavingCreatedByUserIds = recipeIngredientQueryResponseItems.filter((recipeIngredient) => recipeIngredient.createdByUserId)
-  const recipeIngredientsIngredientIds = recipeIngredientsHavingIngredientIds.map((recipeIngredient) => ({ ingredientId: recipeIngredient.ingredientId! }))
-  const recipeIngredientsCreatedByUserIds = recipeIngredientsHavingCreatedByUserIds.map((recipeIngredient) => ({ userId: recipeIngredient.createdByUserId! }))
+  const ingredientIds = recipeIngredientsHavingIngredientIds.map((recipeIngredient) => ({ ingredientId: recipeIngredient.ingredientId! }))
+  const createdByUserIds = recipeIngredientsHavingCreatedByUserIds.map((recipeIngredient) => ({ userId: recipeIngredient.createdByUserId! }))
   const [recipeIngredientsIngredients, recipeIngredientsCreatedByUsers] = await Promise.all([
-    batchGetIngredients({ ids: recipeIngredientsIngredientIds }),
-    batchGetUsers({ ids: recipeIngredientsCreatedByUserIds }),
+    batchGetIngredients({ ids: ingredientIds }),
+    batchGetUsers({ ids: createdByUserIds }),
   ])
   const recipeIngredients = recipeIngredientQueryResponseItems.map((recipeIngredient) => {
     const ingredient = recipeIngredientsIngredients.find((recipeIngredientIngredient) => recipeIngredientIngredient.ingredientId === recipeIngredient.ingredientId)

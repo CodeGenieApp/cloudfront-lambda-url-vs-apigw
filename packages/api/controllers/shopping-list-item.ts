@@ -123,11 +123,11 @@ export async function listShoppingListItems({ lastEvaluatedKey, filter, shopping
     } })
   const shoppingListItemsHavingIngredientIds = shoppingListItemQueryResponseItems.filter((shoppingListItem) => shoppingListItem.ingredientId)
   const shoppingListItemsHavingCreatedByUserIds = shoppingListItemQueryResponseItems.filter((shoppingListItem) => shoppingListItem.createdByUserId)
-  const shoppingListItemsIngredientIds = shoppingListItemsHavingIngredientIds.map((shoppingListItem) => ({ ingredientId: shoppingListItem.ingredientId! }))
-  const shoppingListItemsCreatedByUserIds = shoppingListItemsHavingCreatedByUserIds.map((shoppingListItem) => ({ userId: shoppingListItem.createdByUserId! }))
+  const ingredientIds = shoppingListItemsHavingIngredientIds.map((shoppingListItem) => ({ ingredientId: shoppingListItem.ingredientId! }))
+  const createdByUserIds = shoppingListItemsHavingCreatedByUserIds.map((shoppingListItem) => ({ userId: shoppingListItem.createdByUserId! }))
   const [shoppingListItemsIngredients, shoppingListItemsCreatedByUsers] = await Promise.all([
-    batchGetIngredients({ ids: shoppingListItemsIngredientIds }),
-    batchGetUsers({ ids: shoppingListItemsCreatedByUserIds }),
+    batchGetIngredients({ ids: ingredientIds }),
+    batchGetUsers({ ids: createdByUserIds }),
   ])
   const shoppingListItems = shoppingListItemQueryResponseItems.map((shoppingListItem) => {
     const ingredient = shoppingListItemsIngredients.find((shoppingListItemIngredient) => shoppingListItemIngredient.ingredientId === shoppingListItem.ingredientId)

@@ -128,8 +128,8 @@ export async function listShoppingLists({ lastEvaluatedKey, filter, asUser }: Li
       ],
     } })
   const shoppingListsHavingCreatedByUserIds = shoppingListScanResponseItems.filter((shoppingList) => shoppingList.createdByUserId)
-  const shoppingListsCreatedByUserIds = shoppingListsHavingCreatedByUserIds.map((shoppingList) => ({ userId: shoppingList.createdByUserId! }))
-  const shoppingListsCreatedByUsers = await batchGetUsers({ ids: shoppingListsCreatedByUserIds })
+  const createdByUserIds = shoppingListsHavingCreatedByUserIds.map((shoppingList) => ({ userId: shoppingList.createdByUserId! }))
+  const shoppingListsCreatedByUsers = await batchGetUsers({ ids: createdByUserIds })
   const shoppingLists = shoppingListScanResponseItems.map((shoppingList) => {
     const createdByUser = shoppingListsCreatedByUsers.find((shoppingListCreatedByUser) => shoppingListCreatedByUser.userId === shoppingList.createdByUserId)
 

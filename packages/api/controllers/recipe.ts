@@ -148,15 +148,15 @@ export async function listRecipes({ lastEvaluatedKey, filter }: ListRecipesParam
   const recipeScanResponseItems = filterResults({ results: recipeScanResponse.Items, filter })
   const recipesHavingTags = recipeScanResponseItems.filter((recipe) => recipe.tags)
   const recipesHavingCreatedByUserIds = recipeScanResponseItems.filter((recipe) => recipe.createdByUserId)
-  const recipesTags = recipesHavingTags.flatMap((recipe) => recipe.tags.map((tagId) => ({ tagId })))
-  const recipesCreatedByUserIds = recipesHavingCreatedByUserIds.map((recipe) => ({ userId: recipe.createdByUserId! }))
+  const tags = recipesHavingTags.flatMap((recipe) => recipe.tags.map((tagId) => ({ tagId })))
+  const createdByUserIds = recipesHavingCreatedByUserIds.map((recipe) => ({ userId: recipe.createdByUserId! }))
   const [recipesTags, recipesCreatedByUsers] = await Promise.all([
-    batchGetTags({ ids: recipesTags }),
-    batchGetUsers({ ids: recipesCreatedByUserIds }),
+    batchGetTags({ ids: tags }),
+    batchGetUsers({ ids: createdByUserIds }),
   ])
-  const imagesPreSignedUrls = await Promise.all(
-    recipeScanResponseItems.filter((recipe) => recipe.image).map((recipe) => getImageUrlFromS3(recipe.image!)),
-  )
+  const imagesPreSignedUrls = await Promise.all(recipeScanResponseItems.filter((recipe) => recipe.image).map((recipe) =>
+    getImageUrlFromS3(recipe.image!),
+  ))
   const recipes = recipeScanResponseItems.map((recipe) => {
     const tags = recipesTags.filter((tag) => recipe.tags?.includes(tag.tagId))
     const createdByUser = recipesCreatedByUsers.find((recipeCreatedByUser) => recipeCreatedByUser.userId === recipe.createdByUserId)
