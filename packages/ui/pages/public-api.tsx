@@ -4,6 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const { Title, Paragraph } = Typography
 const INTERVAL = 500
+const TIME_WINDOW_SECONDS = 60
 
 export default function PublicApi() {
   const [stats, setStats] = useState({
@@ -14,7 +15,6 @@ export default function PublicApi() {
 
   const [timeSeriesData, setTimeSeriesData] = useState<Array<any>>([])
   const startTimeRef = useRef(Date.now())
-  const maxDataPointsRef = useRef(60) // Start with 60 seconds
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,9 +57,10 @@ export default function PublicApi() {
       })
 
       setTimeSeriesData((prevData) => {
-        const newData = [...prevData, newDataPoint]
-        if (newData.length > maxDataPointsRef.current) {
-          maxDataPointsRef.current = newData.length
+        const newData = [...prevData, newDataPoint].filter((point) => point.timestamp > elapsedSeconds - TIME_WINDOW_SECONDS)
+        if (newData.length < TIME_WINDOW_SECONDS / (INTERVAL / 1000)) {
+          const paddingPoint = { timestamp: elapsedSeconds }
+          return [...Array(TIME_WINDOW_SECONDS / (INTERVAL / 1000) - newData.length).fill(paddingPoint), ...newData]
         }
         return newData
       })
@@ -83,6 +84,12 @@ export default function PublicApi() {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
   }
 
+  const getXAxisDomain = () => {
+    if (timeSeriesData.length === 0) return [0, TIME_WINDOW_SECONDS]
+    const lastTimestamp = timeSeriesData[timeSeriesData.length - 1].timestamp
+    return [Math.max(0, lastTimestamp - TIME_WINDOW_SECONDS), lastTimestamp]
+  }
+
   return (
     <div style={{ padding: 24 }}>
       <Title level={2}>API Request Statistics</Title>
@@ -101,7 +108,7 @@ export default function PublicApi() {
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={timeSeriesData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" domain={[0, maxDataPointsRef.current]} type="number" tickFormatter={formatXAxis} />
+            <XAxis dataKey="timestamp" domain={getXAxisDomain()} type="number" tickFormatter={formatXAxis} />
             <YAxis />
             <Tooltip labelFormatter={formatXAxis} />
             <Legend />
