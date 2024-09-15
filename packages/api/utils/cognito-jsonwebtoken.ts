@@ -1,8 +1,10 @@
-import { CognitoJwtVerifier } from 'aws-jwt-verify'
-import { COGNITO_USER_POOL_ID, COGNITO_USER_POOL_CLIENT_ID } from '../config'
+import { COGNITO_USER_POOL_ID, AWS_REGION } from '../config'
 import { assertHasRequiredEnvVars } from '@/common/required-env-vars'
+import jwt from 'jsonwebtoken'
+import { JwksClient } from 'jwks-rsa'
 
-assertHasRequiredEnvVars(['COGNITO_USER_POOL_ID', 'COGNITO_USER_POOL_CLIENT_ID'])
+assertHasRequiredEnvVars(['AWS_REGION', 'COGNITO_USER_POOL_ID'])
+
 const jwks = {
   keys: [
     {
@@ -24,9 +26,39 @@ const jwks = {
   ],
 }
 
-export const idTokenVerifier = CognitoJwtVerifier.create({
-  userPoolId: COGNITO_USER_POOL_ID,
-  clientId: COGNITO_USER_POOL_CLIENT_ID,
-  tokenUse: 'id',
+const client = new JwksClient({
+  jwksUri: `https://cognito-idp.${AWS_REGION}.amazonaws.com/${COGNITO_USER_POOL_ID}/.well-known/jwks.json`,
+  cache: true,
+  rateLimit: true,
+  getKeysInterceptor: () => Promise.resolve(jwks.keys),
 })
-idTokenVerifier.cacheJwks(jwks)
+
+const verify = async (token: string): Promise<jwt.JwtPayload> => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(
+      token,
+      getKey,
+      {
+        algorithms: ['RS256'],
+      },
+      (err, decoded) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(decoded as jwt.JwtPayload)
+        }
+      },
+    )
+  })
+}
+
+function getKey(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
+  client.getSigningKey(header.kid, (err, key) => {
+    const signingKey = key?.getPublicKey()
+    callback(err, signingKey)
+  })
+}
+
+export const idTokenVerifier = {
+  verify,
+}
