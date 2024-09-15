@@ -12,7 +12,7 @@ export default function PublicApi() {
     cloudFront: { min: Infinity, avg: 0, max: -Infinity, count: 0 },
   })
 
-  const [timeSeriesData, setTimeSeriesData] = useState([])
+  const [timeSeriesData, setTimeSeriesData] = useState<Array<any>>([])
   const startTimeRef = useRef(Date.now())
   const maxDataPointsRef = useRef(60) // Start with 60 seconds
 
