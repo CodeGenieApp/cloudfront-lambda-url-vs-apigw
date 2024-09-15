@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, Row, Col, Typography, Statistic } from 'antd'
 
 const { Title, Paragraph } = Typography
-
+const INTERVAL = 500
 export default function PublicApi() {
   const [stats, setStats] = useState({
     apiEndpoint: { min: Infinity, avg: 0, max: -Infinity, count: 0 },
@@ -42,7 +42,7 @@ export default function PublicApi() {
           })
           .catch((error) => console.error(`Error fetching ${name}:`, error))
       })
-    }, 1000)
+    }, INTERVAL)
 
     return () => clearInterval(interval)
   }, [])
@@ -61,7 +61,7 @@ export default function PublicApi() {
       <Title level={2}>API Request Statistics</Title>
       <Row gutter={16}>
         <Col xs={24} sm={8}>
-          <StatCard title="API Endpoint" stats={stats.apiEndpoint} />
+          <StatCard title="API Gateway" stats={stats.apiEndpoint} />
         </Col>
         <Col xs={24} sm={8}>
           <StatCard title="Lambda Function" stats={stats.lambdaFunction} />
