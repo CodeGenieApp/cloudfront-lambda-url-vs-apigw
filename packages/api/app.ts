@@ -40,7 +40,7 @@ app.use(async (req, res, next) => {
 
   // NOTE: APIGW sets event.requestContext.authorizer when using an Authorizer. If one isn't set,
   // then we're likely running locally. Validate the token manually.
-  let jwtClaims = event.requestContext?.authorizer?.claims
+  let jwtClaims = event.requestContext?.authorizer?.jwt?.claims
   if (!jwtClaims) {
     if (!req.headers.authorization) {
       throw new UnauthenticatedException({ message: 'Missing Authorization header.' })
@@ -51,8 +51,6 @@ app.use(async (req, res, next) => {
     } catch (error) {
       throw new UnauthenticatedException({ message: 'Unable to verify token.' })
     }
-  } else {
-    console.info('FOUND_JWT_CLAIMS_IN_REQUEST_CONTEXT')
   }
 
   if (!jwtClaims || !jwtClaims.email || !jwtClaims.userId) {

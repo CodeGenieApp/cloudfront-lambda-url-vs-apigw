@@ -32,6 +32,13 @@ export default function ApiTests({
     return sum / trimmed.length
   }
 
+  const calculateP90 = (durations: number[]) => {
+    if (durations.length === 0) return 0
+    const sorted = [...durations].sort((a, b) => a - b)
+    const index = Math.ceil(0.9 * sorted.length) - 1
+    return sorted[index]
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       const currentTime = Date.now()
@@ -92,12 +99,14 @@ export default function ApiTests({
 
   const StatCard = ({ title, stats }) => {
     const trimmedMean = calculateTrimmedMean(stats.durations).toFixed(2)
+    const p90 = calculateP90(stats.durations)!.toFixed(2)
     return (
       <Card title={title} style={{ marginBottom: 16 }}>
-        <Statistic title="Min" value={stats.min.toFixed(2)} suffix="ms" />
-        <Statistic title="Avg" value={stats.avg.toFixed(2)} suffix="ms" />
-        <Statistic title="Max" value={stats.max.toFixed(2)} suffix="ms" />
         <Statistic title="Trimmed Mean" value={trimmedMean} suffix="ms" />
+        <Statistic title="Avg" value={stats.avg.toFixed(2)} suffix="ms" />
+        <Statistic title="Min" value={stats.min.toFixed(2)} suffix="ms" />
+        <Statistic title="Max" value={stats.max.toFixed(2)} suffix="ms" />
+        <Statistic title="P90" value={p90} suffix="ms" />
         <Statistic title="Count" value={stats.count} />
       </Card>
     )
