@@ -193,9 +193,9 @@ export default class ExpressApi extends Construct {
   }
 
   createApi({ auth }: { auth: Auth }) {
-    // const authorizer = new HttpUserPoolAuthorizer('Authorizer', auth.userPool, {
-    //   userPoolClients: [auth.userPoolClient],
-    // })
+    const authorizer = new HttpUserPoolAuthorizer('Authorizer', auth.userPool, {
+      userPoolClients: [auth.userPoolClient],
+    })
     const integration = new HttpLambdaIntegration('LambdaIntegration', this.lambdaFunction)
     const environmentConfig = getEnvironmentConfig(this.node)
     const domainName = environmentConfig.api?.domainName
@@ -223,7 +223,7 @@ export default class ExpressApi extends Construct {
     api.addRoutes({
       path: '/{proxy+}',
       integration,
-      // authorizer,
+      authorizer,
       methods: [HttpMethod.ANY],
     })
     // Override OPTIONS method with no authorizer
@@ -231,6 +231,12 @@ export default class ExpressApi extends Construct {
       path: '/{proxy+}',
       integration,
       methods: [HttpMethod.OPTIONS],
+    })
+    // Override public API method with no authorizer
+    api.addRoutes({
+      path: '/public',
+      integration,
+      methods: [HttpMethod.GET],
     })
 
     let logGroup

@@ -51,6 +51,8 @@ app.use(async (req, res, next) => {
     } catch (error) {
       throw new UnauthenticatedException({ message: 'Unable to verify token.' })
     }
+  } else {
+    console.info('FOUND_JWT_CLAIMS_IN_REQUEST_CONTEXT')
   }
 
   if (!jwtClaims || !jwtClaims.email || !jwtClaims.userId) {
@@ -76,6 +78,9 @@ app.use(async (req, res, next) => {
   // const currentUser = await getCurrentUser(req)
 })
 
+app.get('/private', async (req, res) => {
+  res.json({})
+})
 app.use(meRouter)
 app.use(ingredientRouter)
 app.use(recipeRouter)

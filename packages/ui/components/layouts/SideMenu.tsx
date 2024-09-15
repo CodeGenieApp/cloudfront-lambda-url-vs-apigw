@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext } from 'react'
-import { BgColorsOutlined, AppstoreOutlined } from '@ant-design/icons'
+import { BgColorsOutlined, AppstoreOutlined, LineChartOutlined } from '@ant-design/icons'
 import { Button, Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -23,6 +23,11 @@ export default function SideMenu() {
 
   const me = meQuery?.data?.data
   const items: Array<ItemType<MenuItemType>> = [
+    {
+      key: 'private-api-tests',
+      icon: <LineChartOutlined />,
+      label: <Link href="/private-api-tests">Authenticated API Tests</Link>,
+    },
     {
       key: 'ingredients',
       icon: <AppstoreOutlined />,

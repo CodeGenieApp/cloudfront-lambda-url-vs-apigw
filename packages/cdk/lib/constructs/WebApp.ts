@@ -39,6 +39,11 @@ export default class WebApp extends Construct {
           status: RedirectStatus.REWRITE,
         },
         {
+          source: '/private-api',
+          target: '/private-api',
+          status: RedirectStatus.REWRITE,
+        },
+        {
           source: '/register',
           target: '/register',
           status: RedirectStatus.REWRITE,

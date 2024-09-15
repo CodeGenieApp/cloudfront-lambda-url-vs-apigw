@@ -1,4 +1,36 @@
 {
+  "Recipes-production-Auth": {
+    "ExportsOutputRefAuthUserPool8115E87F4F9C6D4C": "us-west-2_LEF6Fv2HL",
+    "UserPoolClientId": "3u3sm4ip36fmba85b5dds4568f",
+    "ExportsOutputRefAuthUserPoolUserPoolClientBB863FCCB5DBFB7B": "3u3sm4ip36fmba85b5dds4568f",
+    "UserPoolId": "us-west-2_LEF6Fv2HL",
+    "ExportsOutputRefAuthPreTokenGenerationFunctionPreTokenGenerationFunctionFunctionFED5BC2DD73E1D85": "Recipes-production-Auth-AuthPreTokenGenerationFunc-kAKeTj0shA7L",
+    "ExportsOutputRefAuthCustomMessageFunctionCustomMessageFunctionLogGroup557B06B9DA197D85": "Recipes-production-Auth-AuthCustomMessageFunctionCustomMessageFunctionLogGroup557B06B9-NkHa6Zbg7VlA",
+    "ExportsOutputRefAuthPreSignupFunctionPreSignupFunctionLogGroup252FE48E34FD04C6": "Recipes-production-Auth-AuthPreSignupFunctionPreSignupFunctionLogGroup252FE48E-aEg2YYObHVb2",
+    "ExportsOutputRefAuthPreTokenGenerationFunctionPreTokenGenerationFunctionLogGroupBFCF770F61B3EEA2": "Recipes-production-Auth-AuthPreTokenGenerationFunctionPreTokenGenerationFunctionLogGroupBFCF770F-PqKR06Hl9h8g",
+    "Region": "us-west-2",
+    "ExportsOutputRefAuthPreSignupFunctionPreSignupFunctionFunction27695C82EFD7166D": "Recipes-production-Auth-AuthPreSignupFunctionPreSi-hJXTIaBJ1FJx",
+    "ExportsOutputRefAuthCustomMessageFunctionCustomMessageFunctionFunction635EAB4E31D5154C": "Recipes-production-Auth-AuthCustomMessageFunctionC-VInEWK3eULGR"
+  },
+  "Recipes-production-Monitoring": {
+    "Region": "us-west-2"
+  },
+  "Recipes-production-WebApp": {
+    "Region": "us-west-2",
+    "AmplifyUrl": "https://production.d1gtqqp4ixg5qm.amplifyapp.com",
+    "ExportsOutputFnGetAttWebAppAmplifyApp42AA4FC9AppId0CA26BD3": "d1gtqqp4ixg5qm"
+  },
+  "Recipes-production-Api": {
+    "ExportsOutputRefExpressApiLambdaFunctionLambdaFunctionFunctionE7A091BBFE1487C1": "Recipes-production-Api-ExpressApiLambdaFunctionLam-VNylYt5iLhm2",
+    "ExportsOutputRefExpressApiHttpApiA49C63655567EF4B": "k8jktsy7g9",
+    "ExpressApiFunctionUrl": "https://fggdo6grpwde7jhigjqa3vh4y40aeocb.lambda-url.us-west-2.on.aws/",
+    "CloudFrontDistributionUrl": "https://dkutcgk6kr57p.cloudfront.net",
+    "UserUploadedFilesBucketName": "recipes-production-api-expressapiuseruploadedfiles-59xrorikth5a",
+    "Region": "us-west-2",
+    "ApiEndpoint": "https://k8jktsy7g9.execute-api.us-west-2.amazonaws.com",
+    "ExportsOutputRefExpressApiAccessLogsD6410AA831D7FBE1": "Recipes-production-Api-ExpressApiAccessLogsD6410AA8-22EifiWHus5f",
+    "ExportsOutputRefExpressApiLambdaFunctionLambdaFunctionLogGroup0A46D4BB990477F0": "Recipes-production-Api-ExpressApiLambdaFunctionLambdaFunctionLogGroup0A46D4BB-8K36I3SHjrAA"
+  },
   "Recipes-production-Database": {
     "ExportsOutputFnGetAttRecipeTable1376D008Arn93B8B7A6": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-RecipeTable1376D008-DTM8ETVPECYO",
     "ExportsOutputFnGetAttStepTableEFD98F96Arn6BD489AC": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-StepTableEFD98F96-N48JCEZ3GZRH",
@@ -28,23 +60,5 @@
     "ExportsOutputFnGetAttRecipeRatingTableC9746FE4ArnEA02340E": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-RecipeRatingTableC9746FE4-1F79ITE472VLB",
     "StepTable": "Recipes-production-Database-StepTableEFD98F96-N48JCEZ3GZRH",
     "ShoppingListItemTable": "Recipes-production-Database-ShoppingListItemTableFE38D472-1LAR18DEO2HO9"
-  },
-  "Recipes-production-Auth": {
-    "ExportsOutputRefAuthUserPool8115E87F4F9C6D4C": "us-west-2_LEF6Fv2HL",
-    "UserPoolClientId": "3u3sm4ip36fmba85b5dds4568f",
-    "ExportsOutputRefAuthUserPoolUserPoolClientBB863FCCB5DBFB7B": "3u3sm4ip36fmba85b5dds4568f",
-    "UserPoolId": "us-west-2_LEF6Fv2HL",
-    "Region": "us-west-2"
-  },
-  "Recipes-production-Api": {
-    "ExpressApiFunctionUrl": "https://fggdo6grpwde7jhigjqa3vh4y40aeocb.lambda-url.us-west-2.on.aws/",
-    "CloudFrontDistributionUrl": "https://dkutcgk6kr57p.cloudfront.net",
-    "UserUploadedFilesBucketName": "recipes-production-api-expressapiuseruploadedfiles-59xrorikth5a",
-    "Region": "us-west-2",
-    "ApiEndpoint": "https://k8jktsy7g9.execute-api.us-west-2.amazonaws.com"
-  },
-  "Recipes-production-WebApp": {
-    "Region": "us-west-2",
-    "AmplifyUrl": "https://production.d1gtqqp4ixg5qm.amplifyapp.com"
   }
 }
