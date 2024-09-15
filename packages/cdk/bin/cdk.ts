@@ -40,13 +40,13 @@ const apiStack = new ApiStack(app, `Recipes-${envName}-Api`, {
   ...tableProps,
   auth: authStack.auth,
 })
-// const monitoringStack = new MonitoringStack(app, `Recipes-${envName}-Monitoring`, {
-//   ...commonStackProps,
-//   ...tableProps,
-//   auth: authStack.auth,
-//   webApp: webAppStack.webApp,
-//   api: apiStack.api,
-// })
+const monitoringStack = new MonitoringStack(app, `Recipes-${envName}-Monitoring`, {
+  ...commonStackProps,
+  ...tableProps,
+  auth: authStack.auth,
+  webApp: webAppStack.webApp,
+  api: apiStack.api,
+})
 
 const tagsMap = getTagsMap(envName)
 Object.entries(tagsMap).forEach(([tagKey, tagValue]) => {
