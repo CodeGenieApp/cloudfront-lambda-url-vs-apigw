@@ -1,0 +1,50 @@
+{
+  "Recipes-production-Database": {
+    "ExportsOutputFnGetAttRecipeTable1376D008Arn93B8B7A6": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-RecipeTable1376D008-DTM8ETVPECYO",
+    "ExportsOutputFnGetAttStepTableEFD98F96Arn6BD489AC": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-StepTableEFD98F96-N48JCEZ3GZRH",
+    "RecipeRatingTable": "Recipes-production-Database-RecipeRatingTableC9746FE4-1F79ITE472VLB",
+    "ExportsOutputFnGetAttRecipeIngredientTable2E3097A2Arn78A2F229": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-RecipeIngredientTable2E3097A2-AL4QAL9OFOA2",
+    "ExportsOutputFnGetAttShoppingListItemTableFE38D472Arn59353DA7": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-ShoppingListItemTableFE38D472-1LAR18DEO2HO9",
+    "ExportsOutputRefShoppingListItemTableFE38D472A6CDEFB3": "Recipes-production-Database-ShoppingListItemTableFE38D472-1LAR18DEO2HO9",
+    "ExportsOutputFnGetAttIngredientTableEA3B3DDDArn6BB5F14E": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-IngredientTableEA3B3DDD-117GYPTHKMGKZ",
+    "ExportsOutputRefIngredientTableEA3B3DDD8F00BB2E": "Recipes-production-Database-IngredientTableEA3B3DDD-117GYPTHKMGKZ",
+    "RecipeIngredientTable": "Recipes-production-Database-RecipeIngredientTable2E3097A2-AL4QAL9OFOA2",
+    "ExportsOutputRefRecipeTable1376D008D502063A": "Recipes-production-Database-RecipeTable1376D008-DTM8ETVPECYO",
+    "ExportsOutputRefShoppingListTable1C42399FF485CC5E": "Recipes-production-Database-ShoppingListTable1C42399F-KI8UTLK6V3GX",
+    "TagTable": "Recipes-production-Database-TagTableA9DECFCD-15A32U61D3ZX0",
+    "ExportsOutputFnGetAttShoppingListTable1C42399FArnEADCFC68": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-ShoppingListTable1C42399F-KI8UTLK6V3GX",
+    "ExportsOutputRefRecipeRatingTableC9746FE4EB8C6A38": "Recipes-production-Database-RecipeRatingTableC9746FE4-1F79ITE472VLB",
+    "ExportsOutputRefStepTableEFD98F967DD9F506": "Recipes-production-Database-StepTableEFD98F96-N48JCEZ3GZRH",
+    "UserTable": "Recipes-production-Database-UserTable7422B51B-XUOS5WXLB839",
+    "ExportsOutputRefUserTable7422B51B54C5D340": "Recipes-production-Database-UserTable7422B51B-XUOS5WXLB839",
+    "ExportsOutputFnGetAttUserTable7422B51BArn264A2F84": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-UserTable7422B51B-XUOS5WXLB839",
+    "IngredientTable": "Recipes-production-Database-IngredientTableEA3B3DDD-117GYPTHKMGKZ",
+    "RecipeTable": "Recipes-production-Database-RecipeTable1376D008-DTM8ETVPECYO",
+    "ExportsOutputRefRecipeIngredientTable2E3097A285008860": "Recipes-production-Database-RecipeIngredientTable2E3097A2-AL4QAL9OFOA2",
+    "ExportsOutputRefTagTableA9DECFCD4AB9763E": "Recipes-production-Database-TagTableA9DECFCD-15A32U61D3ZX0",
+    "ShoppingListTable": "Recipes-production-Database-ShoppingListTable1C42399F-KI8UTLK6V3GX",
+    "ExportsOutputFnGetAttTagTableA9DECFCDArnF4128E18": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-TagTableA9DECFCD-15A32U61D3ZX0",
+    "Region": "us-west-2",
+    "ExportsOutputFnGetAttRecipeRatingTableC9746FE4ArnEA02340E": "arn:aws:dynamodb:us-west-2:347971939225:table/Recipes-production-Database-RecipeRatingTableC9746FE4-1F79ITE472VLB",
+    "StepTable": "Recipes-production-Database-StepTableEFD98F96-N48JCEZ3GZRH",
+    "ShoppingListItemTable": "Recipes-production-Database-ShoppingListItemTableFE38D472-1LAR18DEO2HO9"
+  },
+  "Recipes-production-Auth": {
+    "ExportsOutputRefAuthUserPool8115E87F4F9C6D4C": "us-west-2_LEF6Fv2HL",
+    "UserPoolClientId": "3u3sm4ip36fmba85b5dds4568f",
+    "ExportsOutputRefAuthUserPoolUserPoolClientBB863FCCB5DBFB7B": "3u3sm4ip36fmba85b5dds4568f",
+    "UserPoolId": "us-west-2_LEF6Fv2HL",
+    "Region": "us-west-2"
+  },
+  "Recipes-production-Api": {
+    "ExpressApiFunctionUrl": "https://fggdo6grpwde7jhigjqa3vh4y40aeocb.lambda-url.us-west-2.on.aws/",
+    "CloudFrontDistributionUrl": "https://dkutcgk6kr57p.cloudfront.net",
+    "UserUploadedFilesBucketName": "recipes-production-api-expressapiuseruploadedfiles-59xrorikth5a",
+    "Region": "us-west-2",
+    "ApiEndpoint": "https://k8jktsy7g9.execute-api.us-west-2.amazonaws.com"
+  },
+  "Recipes-production-WebApp": {
+    "Region": "us-west-2",
+    "AmplifyUrl": "https://production.d1gtqqp4ixg5qm.amplifyapp.com"
+  }
+}

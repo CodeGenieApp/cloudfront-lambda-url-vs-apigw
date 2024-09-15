@@ -10,6 +10,21 @@ import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { LogGroup } from 'aws-cdk-lib/aws-logs'
 import { Certificate } from 'aws-cdk-lib/aws-certificatemanager'
 import { Bucket } from 'aws-cdk-lib/aws-s3'
+import { FunctionUrl, FunctionUrlAuthType } from 'aws-cdk-lib/aws-lambda'
+import {
+  AllowedMethods,
+  CachePolicy,
+  CfnDistribution,
+  CfnOriginAccessControl,
+  Distribution,
+  OriginRequestCookieBehavior,
+  OriginRequestHeaderBehavior,
+  OriginRequestPolicy,
+  OriginRequestQueryStringBehavior,
+  ResponseHeadersPolicy,
+} from 'aws-cdk-lib/aws-cloudfront'
+import { FunctionUrlOrigin, HttpOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
+
 import Auth from './Auth'
 import { getEnvironmentConfig, getEnvironmentName, getIsProd } from '../environment-config'
 import CustomNodejsFunction from './CustomNodejsFunction'
@@ -32,6 +47,8 @@ export default class ExpressApi extends Construct {
   public readonly apiLogGroup?: LogGroup
   public readonly lambdaFunction: NodejsFunction
   public readonly userUploadedFilesBucket: Bucket
+  public readonly lambdaFunctionUrl: FunctionUrl
+  public readonly cloudFrontDistribution: Distribution
   constructor(scope: Construct, id: string, props: ExpressApiProps) {
     super(scope, id)
 
@@ -40,11 +57,53 @@ export default class ExpressApi extends Construct {
       key: 'UserUploadedFilesBucketName',
       value: this.userUploadedFilesBucket.bucketName,
     })
-    this.lambdaFunction = this.createLambdaFunction({ props })
+    const { lambdaFunction, lambdaFunctionUrl } = this.createLambdaFunction({ props })
+    this.lambdaFunction = lambdaFunction
+    this.lambdaFunctionUrl = lambdaFunctionUrl
+
+    this.cloudFrontDistribution = this.createCloudFrontDistribution()
 
     const { api, logGroup } = this.createApi({ auth: props.auth })
     this.api = api
     this.apiLogGroup = logGroup
+  }
+  createCloudFrontDistribution() {
+    const cloudFrontDistribution = new Distribution(this, 'CloudFrontDistribution', {
+      enableLogging: true,
+      defaultBehavior: {
+        allowedMethods: AllowedMethods.ALLOW_ALL,
+        origin: new FunctionUrlOrigin(this.lambdaFunctionUrl),
+        cachePolicy: new CachePolicy(this, 'CachePolicy', {
+          minTtl: Duration.seconds(0),
+          maxTtl: Duration.seconds(0),
+          defaultTtl: Duration.seconds(0),
+        }),
+        originRequestPolicy: new OriginRequestPolicy(this, 'OriginRequestPolicy', {
+          cookieBehavior: OriginRequestCookieBehavior.all(),
+          queryStringBehavior: OriginRequestQueryStringBehavior.all(),
+          headerBehavior: OriginRequestHeaderBehavior.denyList('host'),
+        }),
+      },
+    })
+    const cloudFrontOriginAccessControl = new CfnOriginAccessControl(this, 'CloudFrontOriginAccessControl', {
+      originAccessControlConfig: {
+        name: `ExpressApi_${this.node.addr}`,
+        originAccessControlOriginType: 'lambda',
+        signingBehavior: 'no-override', // 'always' | 'never'
+        signingProtocol: 'sigv4',
+      },
+    })
+
+    // NOTE: CDK doesn't natively support adding OAC yet https://github.com/aws/aws-cdk/issues/21771
+    const cfnDistribution = cloudFrontDistribution.node.defaultChild as CfnDistribution
+    cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.OriginAccessControlId', cloudFrontOriginAccessControl.getAtt('Id'))
+
+    new CfnOutput(this, 'CloudFrontDistributionUrl', {
+      key: 'CloudFrontDistributionUrl',
+      value: `https://${cloudFrontDistribution.distributionDomainName}`,
+    })
+
+    return cloudFrontDistribution
   }
 
   createLambdaFunction({ props }: { props: ExpressApiProps }) {
@@ -74,7 +133,16 @@ export default class ExpressApi extends Construct {
     this.grantLambdaFunctionDynamoDbReadWritePermissions({ lambdaFunction, props })
     this.grantUserUploadedFilesBucketPermissions({ lambdaFunction })
 
-    return lambdaFunction
+    const lambdaFunctionUrl = lambdaFunction.addFunctionUrl({
+      authType: FunctionUrlAuthType.NONE,
+    })
+
+    new CfnOutput(this, 'ExpressApiFunctionUrl', { key: 'ExpressApiFunctionUrl', value: lambdaFunctionUrl.url })
+
+    return {
+      lambdaFunction,
+      lambdaFunctionUrl,
+    }
   }
 
   grantLambdaFunctionDynamoDbReadWritePermissions({ lambdaFunction, props }: { lambdaFunction: NodejsFunction; props: ExpressApiProps }) {
@@ -125,9 +193,9 @@ export default class ExpressApi extends Construct {
   }
 
   createApi({ auth }: { auth: Auth }) {
-    const authorizer = new HttpUserPoolAuthorizer('Authorizer', auth.userPool, {
-      userPoolClients: [auth.userPoolClient],
-    })
+    // const authorizer = new HttpUserPoolAuthorizer('Authorizer', auth.userPool, {
+    //   userPoolClients: [auth.userPoolClient],
+    // })
     const integration = new HttpLambdaIntegration('LambdaIntegration', this.lambdaFunction)
     const environmentConfig = getEnvironmentConfig(this.node)
     const domainName = environmentConfig.api?.domainName
@@ -155,7 +223,7 @@ export default class ExpressApi extends Construct {
     api.addRoutes({
       path: '/{proxy+}',
       integration,
-      authorizer,
+      // authorizer,
       methods: [HttpMethod.ANY],
     })
     // Override OPTIONS method with no authorizer

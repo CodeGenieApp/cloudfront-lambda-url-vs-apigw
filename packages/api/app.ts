@@ -32,6 +32,9 @@ app.use(
     limit: '10mb',
   }),
 )
+app.get('/public', async (req, res) => {
+  res.json({})
+})
 app.use(async (req, res, next) => {
   const { event = {} } = getCurrentInvoke()
 

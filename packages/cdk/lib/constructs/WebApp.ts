@@ -34,6 +34,11 @@ export default class WebApp extends Construct {
           status: RedirectStatus.REWRITE,
         },
         {
+          source: '/public-api',
+          target: '/public-api',
+          status: RedirectStatus.REWRITE,
+        },
+        {
           source: '/register',
           target: '/register',
           status: RedirectStatus.REWRITE,
@@ -151,6 +156,8 @@ export default class WebApp extends Construct {
     const uiDotEnvPath = path.join(uiPackagePath, `.env/.env.${envName}`)
     configDotenv({ path: uiDotEnvPath })
     const REQUIRED_ENV_VARS = [
+      'NEXT_PUBLIC_LambdaFunctionUrl',
+      'NEXT_PUBLIC_CloudFrontDistributionUrl',
       'NEXT_PUBLIC_ApiEndpoint',
       'NEXT_PUBLIC_CognitoUserPoolId',
       'NEXT_PUBLIC_CognitoUserPoolClientId',

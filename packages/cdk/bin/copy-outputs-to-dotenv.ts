@@ -12,7 +12,10 @@ const nodeEnv = ENVIRONMENT === 'development' ? 'development' : 'production'
 const outputs = await import(`../cdk-outputs.${ENVIRONMENT}.json`)
 
 if (!outputs) {
-  const envShort = ENVIRONMENT === 'development' ? 'dev' : ENVIRONMENT === 'production' ? 'prod' : ENVIRONMENT
+  const envShort =
+    ENVIRONMENT === 'development' ? 'dev'
+    : ENVIRONMENT === 'production' ? 'prod'
+    : ENVIRONMENT
   throw new Error(`No cdk-outputs.${ENVIRONMENT}.json. Try running \`npm run pull-stack-outputs:${envShort}\``)
 }
 
@@ -42,6 +45,8 @@ USER_TABLE="${databaseStackOutputs.UserTable}"`
 writeFileSync(path.resolve(import.meta.dirname, `../../api/.env.${ENVIRONMENT}`), apiDotEnv)
 
 let uiDotEnv = `NEXT_PUBLIC_ApiEndpoint="${apiStackOutputs.ApiEndpoint}"
+NEXT_PUBLIC_LambdaFunctionUrl="${apiStackOutputs.ExpressApiFunctionUrl}"
+NEXT_PUBLIC_CloudFrontDistributionUrl="${apiStackOutputs.CloudFrontDistributionUrl}"
 NEXT_PUBLIC_CognitoUserPoolId="${authStackOutputs.UserPoolId}"
 NEXT_PUBLIC_CognitoUserPoolClientId="${authStackOutputs.UserPoolClientId}"
 NEXT_PUBLIC_Region="${authStackOutputs.Region}"
