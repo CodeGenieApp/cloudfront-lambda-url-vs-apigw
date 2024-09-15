@@ -24,9 +24,9 @@ export default function SideMenu() {
   const me = meQuery?.data?.data
   const items: Array<ItemType<MenuItemType>> = [
     {
-      key: 'private-api-tests',
+      key: 'private-api',
       icon: <LineChartOutlined />,
-      label: <Link href="/private-api-tests">Authenticated API Tests</Link>,
+      label: <Link href="/private-api">Authenticated API Tests</Link>,
     },
     {
       key: 'ingredients',
