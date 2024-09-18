@@ -72,7 +72,12 @@ export default class ExpressApi extends Construct {
       enableLogging: true,
       defaultBehavior: {
         allowedMethods: AllowedMethods.ALLOW_ALL,
-        origin: new FunctionUrlOrigin(this.lambdaFunctionUrl),
+        origin: new FunctionUrlOrigin(this.lambdaFunctionUrl, {
+          // Simple method to lock down Lambda FURL; check this header value in Lambda
+          // customHeaders: {
+          //   'X-CloudFront-Secret': 'value',
+          // },
+        }),
         cachePolicy: new CachePolicy(this, 'CachePolicy', {
           minTtl: Duration.seconds(0),
           maxTtl: Duration.seconds(0),
@@ -85,6 +90,8 @@ export default class ExpressApi extends Construct {
         }),
       },
     })
+    /*
+    // OAC if you want to try enabling authType: FunctionUrlAuthType.AWS_IAM on your Lambda FURL,
     const cloudFrontOriginAccessControl = new CfnOriginAccessControl(this, 'CloudFrontOriginAccessControl', {
       originAccessControlConfig: {
         name: `ExpressApi_${this.node.addr}`,
@@ -97,7 +104,7 @@ export default class ExpressApi extends Construct {
     // NOTE: CDK doesn't natively support adding OAC yet https://github.com/aws/aws-cdk/issues/21771
     const cfnDistribution = cloudFrontDistribution.node.defaultChild as CfnDistribution
     cfnDistribution.addPropertyOverride('DistributionConfig.Origins.0.OriginAccessControlId', cloudFrontOriginAccessControl.getAtt('Id'))
-
+    */
     new CfnOutput(this, 'CloudFrontDistributionUrl', {
       key: 'CloudFrontDistributionUrl',
       value: `https://${cloudFrontDistribution.distributionDomainName}`,
